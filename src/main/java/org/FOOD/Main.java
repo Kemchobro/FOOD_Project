@@ -11,7 +11,7 @@ public class Main {
 
         System.out.println("What is your query?: ");
 
-    RequestHandler requestHandler = new RequestHandler(scanner.nextLine());
+    RequestHandler requestHandler = new RequestHandler(scanner.nextLine(), RequestHandler.RequestType.EVERYTHING);
 
 
 
