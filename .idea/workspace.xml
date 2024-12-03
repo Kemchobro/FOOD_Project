@@ -8,34 +8,17 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.10/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/FOOD/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/FOOD/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Article.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Parser.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/FOOD/RequestHandler$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/FOOD/RequestHandler$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/FOOD/RequestHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/FOOD/RequestHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/NewsApiClient$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/NewsApiClient$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/NewsApiClient$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/NewsApiClient$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/NewsApiClient$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/NewsApiClient$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/NewsApiClient$ArticlesResponseCallback.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/NewsApiClient$ArticlesResponseCallback.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/NewsApiClient$SourcesCallback.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/NewsApiClient$SourcesCallback.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/NewsApiClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/NewsApiClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/Article.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/Article.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/Source.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/Source.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/request/EverythingRequest$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/request/EverythingRequest$Builder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/request/EverythingRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/request/EverythingRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/request/SourcesRequest$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/request/SourcesRequest$Builder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/request/SourcesRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/request/SourcesRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/request/TopHeadlinesRequest$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/request/TopHeadlinesRequest$Builder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/request/TopHeadlinesRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/request/TopHeadlinesRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/response/ArticleResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/response/ArticleResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/response/SourcesResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/models/response/SourcesResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/network/APIService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/kwabenaberko/newsapilib/network/APIService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Main.class.uniqueId2" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/RequestHandler$1.class.uniqueId0" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/RequestHandler$1.class.uniqueId0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/RequestHandler.class.uniqueId1" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/FOOD/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/FOOD/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/regionalNews.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/FOOD/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/FOOD/RequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/worldNews.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,10 +97,22 @@
       <workItem from="1732813703681" duration="1898000" />
       <workItem from="1732821199301" duration="1322000" />
       <workItem from="1733156264092" duration="2875000" />
+      <workItem from="1733233598903" duration="331000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/FOOD/RequestHandler.java</url>
+          <line>112</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

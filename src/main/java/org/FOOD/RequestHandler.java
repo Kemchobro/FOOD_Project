@@ -143,49 +143,6 @@ public class RequestHandler {
                     }
             );
 
-            default ->    newsApiClient.getEverything(
-                    new EverythingRequest.Builder()
-                            .q(query)
-                            .build(),
-                    new NewsApiClient.ArticlesResponseCallback() {
-                        @Override
-                        public void onSuccess(ArticleResponse response) {
-                            for (Article article : response.getArticles()) {
-                                System.out.println(article.getTitle());
-                                System.out.println(article.getUrl());
-                                System.out.println(article.getDescription());
-                                System.out.println(article.getContent());
-                                try {
-
-                                    // Getting the Date from String by
-                                    // creating object of Instant class
-                                    Instant timestamp = getDateFromString(article.getPublishedAt());
-
-                                    // Printing the converted date
-
-                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                                            .withZone(ZoneId.systemDefault());
-                                    String customFormatted = formatter.format(timestamp);
-                                    System.out.println("Date: " + customFormatted);
-
-                                }
-
-                                // Catch block to handle exceptions
-                                catch (DateTimeParseException e) {
-
-                                    // Throws DateTimeParseException
-                                    // if the string cannot be parsed
-                                    System.out.println("Exception: " + e);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Throwable throwable) {
-                            System.out.println(throwable.getMessage());
-                        }
-                    }
-            );
 
         }
 
