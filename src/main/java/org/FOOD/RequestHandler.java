@@ -41,28 +41,7 @@ public class RequestHandler {
                                 System.out.println(article.getUrl());
                                 System.out.println(article.getDescription());
                                 System.out.println(article.getContent());
-                                try {
-
-                                    // Getting the Date from String by
-                                    // creating object of Instant class
-                                    Instant timestamp = getDateFromString(article.getPublishedAt());
-
-                                    // Printing the converted date
-
-                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                                            .withZone(ZoneId.systemDefault());
-                                    String customFormatted = formatter.format(timestamp);
-                                    System.out.println("Date: " + customFormatted);
-
-                                }
-
-                                // Catch block to handle exceptions
-                                catch (DateTimeParseException e) {
-
-                                    // Throws DateTimeParseException
-                                    // if the string cannot be parsed
-                                    System.out.println("Exception: " + e);
-                                }
+                                System.out.println(DateHelpers.getDate(article.getPublishedAt()));
                             }
                         }
 
@@ -88,28 +67,7 @@ public class RequestHandler {
                                         System.out.println(article.getUrl());
                                         System.out.println(article.getDescription());
                                         System.out.println(article.getContent());
-                                        try {
-
-                                            // Getting the Date from String by
-                                            // creating object of Instant class
-                                            Instant timestamp = getDateFromString(article.getPublishedAt());
-
-                                            // Printing the converted date
-
-                                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                                                    .withZone(ZoneId.systemDefault());
-                                            String customFormatted = formatter.format(timestamp);
-                                            System.out.println("Date: " + customFormatted);
-
-                                        }
-
-                                        // Catch block to handle exceptions
-                                        catch (DateTimeParseException e) {
-
-                                            // Throws DateTimeParseException
-                                            // if the string cannot be parsed
-                                            System.out.println("Exception: " + e);
-                                        }
+                                        System.out.println(DateHelpers.getDate(article.getPublishedAt()));
                                     }
                                 }
 
@@ -155,17 +113,7 @@ public class RequestHandler {
         SOURCES
     }
 
-    public static Instant getDateFromString(String string)
-    {
-        // Creating an instant object
-        Instant timestamp = null;
 
-        // Parsing the string to Date
-        timestamp = Instant.parse(string);
-
-        // Returning the converted timestamp
-        return timestamp;
-    }
 
 
 }
