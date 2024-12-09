@@ -9,102 +9,98 @@ import org.kwabenaberko.newsapilib.models.request.TopHeadlinesRequest;
 import org.kwabenaberko.newsapilib.models.response.ArticleResponse;
 import org.kwabenaberko.newsapilib.models.response.SourcesResponse;
 
-import javax.xml.stream.events.Characters;
-import java.sql.Date;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.*;
-import java.util.Locale;
-
 public class RequestHandler {
 
     NewsApiClient newsApiClient = new NewsApiClient("5d3a947c1a7d4e9e8abea0ffa1f074d7");
 
 
     public RequestHandler(String query, RequestType requestType) {
-
-
         switch (requestType) {
-            case EVERYTHING ->
+            case EVERYTHING -> {
                 newsApiClient.getEverything(
-                    new EverythingRequest.Builder()
-                            .q(query)
-                            .build(),
-                    new NewsApiClient.ArticlesResponseCallback() {
-                        @Override
-                        public void onSuccess(ArticleResponse response) {
-                            for (Article article : response.getArticles()) {
-                                System.out.println(article.getTitle());
-                                System.out.println(article.getUrl());
-                                System.out.println(article.getDescription());
-                                System.out.println(article.getContent());
-                                System.out.println(DateHelpers.getDate(article.getPublishedAt()));
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Throwable throwable) {
-                            System.out.println(throwable.getMessage());
-                        }
-                    }
-            );
-
-
-            case HEADLINES ->
-
-                    newsApiClient.getTopHeadlines(
-                            new TopHeadlinesRequest.Builder()
-                                    .q(query)
-                                    .build(),
-                            new NewsApiClient.ArticlesResponseCallback() {
-                                @Override
-                                public void onSuccess(ArticleResponse response) {
-                                    for (Article article : response.getArticles()) {
-                                        System.out.println(article.getTitle());
-                                        System.out.println(article.getUrl());
-                                        System.out.println(article.getDescription());
-                                        System.out.println(article.getContent());
-                                        System.out.println(DateHelpers.getDate(article.getPublishedAt()));
-                                    }
+                        new EverythingRequest.Builder()
+                                .q(query)
+                                .build(),
+                        new NewsApiClient.ArticlesResponseCallback() {
+                            @Override
+                            public void onSuccess(ArticleResponse response) {
+                                StringBuilder result = new StringBuilder();
+                                for (Article article : response.getArticles()) {
+                                    result.append("Title: ").append(article.getTitle()).append("\n")
+                                            .append("URL: ").append(article.getUrl()).append("\n")
+                                            .append("Description: ").append(article.getDescription()).append("\n")
+                                            .append("Content: ").append(article.getContent()).append("\n")
+                                            .append("Published At: ").append(article.getPublishedAt()).append("\n\n");
                                 }
+                                RequestHandler.this.handleSuccess(result.toString());
+                            }
 
-                                @Override
-                                public void onFailure(Throwable throwable) {
-                                    System.out.println(throwable.getMessage());
+                            @Override
+                            public void onFailure(Throwable throwable) {
+                                RequestHandler.this.handleFailure(throwable);
+                            }
+                        });
+            }
+            case HEADLINES -> {
+                newsApiClient.getTopHeadlines(
+                        new TopHeadlinesRequest.Builder()
+                                .q(query)
+                                .build(),
+                        new NewsApiClient.ArticlesResponseCallback() {
+                            @Override
+                            public void onSuccess(ArticleResponse response) {
+                                StringBuilder result = new StringBuilder();
+                                for (Article article : response.getArticles()) {
+                                    result.append("Title: ").append(article.getTitle()).append("\n")
+                                            .append("URL: ").append(article.getUrl()).append("\n")
+                                            .append("Description: ").append(article.getDescription()).append("\n")
+                                            .append("Content: ").append(article.getContent()).append("\n")
+                                            .append("Published At: ").append(article.getPublishedAt()).append("\n\n");
                                 }
+                                RequestHandler.this.handleSuccess(result.toString());
                             }
-                    );
 
-            case SOURCES ->    newsApiClient.getSources(
-                    new SourcesRequest.Builder()
-                            .category(query)
-                            .build(),
-                    new NewsApiClient.SourcesCallback() {
-                        @Override
-                        public void onSuccess(SourcesResponse response) {
-                            for (Source source : response.getSources()) {
-                                System.out.println(source.getUrl());
-                                System.out.println(source.getName());
-                                System.out.println(source.getDescription());
-                                System.out.println(source.getCategory());
-
+                            @Override
+                            public void onFailure(Throwable throwable) {
+                                RequestHandler.this.handleFailure(throwable);
                             }
-                        }
+                        });
+            }
+            case SOURCES -> {
+                newsApiClient.getSources(
+                        new SourcesRequest.Builder()
+                                .category(query)
+                                .build(),
+                        new NewsApiClient.SourcesCallback() {
+                            @Override
+                            public void onSuccess(SourcesResponse response) {
+                                StringBuilder result = new StringBuilder();
+                                for (Source source : response.getSources()) {
+                                    result.append("Name: ").append(source.getName()).append("\n")
+                                            .append("Description: ").append(source.getDescription()).append("\n")
+                                            .append("Category: ").append(source.getCategory()).append("\n")
+                                            .append("URL: ").append(source.getUrl()).append("\n\n");
+                                }
+                                RequestHandler.this.handleSuccess(result.toString());
+                            }
 
-                        @Override
-                        public void onFailure(Throwable throwable) {
-                            System.out.println(throwable.getMessage());
-                        }
-                    }
-            );
-
-
+                            @Override
+                            public void onFailure(Throwable throwable) {
+                                RequestHandler.this.handleFailure(throwable);
+                            }
+                        });
+            }
         }
+    }
 
+    // Success handler
+    public void handleSuccess(String response) {
+        System.out.println(response);
+    }
 
+    // Failure handler
+    public void handleFailure(Throwable throwable) {
+        System.err.println("Error: " + throwable.getMessage());
     }
 
     public enum RequestType {
@@ -112,10 +108,4 @@ public class RequestHandler {
         HEADLINES,
         SOURCES
     }
-
-
-
-
 }
-
-
