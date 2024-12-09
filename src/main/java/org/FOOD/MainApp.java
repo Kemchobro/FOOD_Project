@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javafx.application.Application;
 import javafx.concurrent.Task;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -23,12 +24,19 @@ public class MainApp extends Application {
     public void start(Stage stage) {
         // UI Components
         ListView<String> listView = new ListView<>();
+        listView.setStyle("-fx-control-inner-background: #f0f4f8; -fx-font-size: 14px;");
+
         TextField queryField = new TextField();
         queryField.setPromptText("Enter a topic...");
+        queryField.setStyle("-fx-font-size: 14px; -fx-background-color: #ffffff;");
+
         Button searchButton = new Button("Search");
+        searchButton.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-size: 14px;");
+
         TextArea detailsArea = new TextArea();
         detailsArea.setEditable(false);
         detailsArea.setWrapText(true);
+        detailsArea.setStyle("-fx-control-inner-background: #f9f9f9; -fx-font-size: 14px; -fx-border-color: #ddd;");
 
         // Button Action to Fetch News
         searchButton.setOnAction(event -> {
@@ -51,7 +59,13 @@ public class MainApp extends Application {
 
         // Layout and Scene
         HBox topBar = new HBox(10, queryField, searchButton);
+        topBar.setPadding(new Insets(10));
+        topBar.setStyle("-fx-background-color: #eeeeee;");
+
         VBox root = new VBox(10, topBar, listView, detailsArea);
+        root.setPadding(new Insets(15));
+        root.setStyle("-fx-background-color: #f7f7f7;");
+
         Scene scene = new Scene(root, 800, 600);
 
         stage.setScene(scene);
