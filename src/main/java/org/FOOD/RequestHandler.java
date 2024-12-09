@@ -1,5 +1,7 @@
 package org.FOOD;
 
+import java.util.function.Consumer;
+
 import org.kwabenaberko.newsapilib.NewsApiClient;
 import org.kwabenaberko.newsapilib.models.Article;
 import org.kwabenaberko.newsapilib.models.Source;
@@ -9,10 +11,14 @@ import org.kwabenaberko.newsapilib.models.request.TopHeadlinesRequest;
 import org.kwabenaberko.newsapilib.models.response.ArticleResponse;
 import org.kwabenaberko.newsapilib.models.response.SourcesResponse;
 
+import javafx.application.Platform;
+
 public class RequestHandler {
 
     NewsApiClient newsApiClient = new NewsApiClient("5d3a947c1a7d4e9e8abea0ffa1f074d7");
 
+    private Consumer<String> onSuccessCallback;
+    private Consumer<String> onFailureCallback;
 
     public RequestHandler(String query, RequestType requestType) {
         switch (requestType) {
@@ -32,12 +38,12 @@ public class RequestHandler {
                                             .append("Content: ").append(article.getContent()).append("\n")
                                             .append("Published At: ").append(article.getPublishedAt()).append("\n\n");
                                 }
-                                RequestHandler.this.handleSuccess(result.toString());
+                                handleSuccess(result.toString());
                             }
 
                             @Override
                             public void onFailure(Throwable throwable) {
-                                RequestHandler.this.handleFailure(throwable);
+                                handleFailure(throwable);
                             }
                         });
             }
@@ -57,12 +63,12 @@ public class RequestHandler {
                                             .append("Content: ").append(article.getContent()).append("\n")
                                             .append("Published At: ").append(article.getPublishedAt()).append("\n\n");
                                 }
-                                RequestHandler.this.handleSuccess(result.toString());
+                                handleSuccess(result.toString());
                             }
 
                             @Override
                             public void onFailure(Throwable throwable) {
-                                RequestHandler.this.handleFailure(throwable);
+                                handleFailure(throwable);
                             }
                         });
             }
@@ -81,12 +87,12 @@ public class RequestHandler {
                                             .append("Category: ").append(source.getCategory()).append("\n")
                                             .append("URL: ").append(source.getUrl()).append("\n\n");
                                 }
-                                RequestHandler.this.handleSuccess(result.toString());
+                                handleSuccess(result.toString());
                             }
 
                             @Override
                             public void onFailure(Throwable throwable) {
-                                RequestHandler.this.handleFailure(throwable);
+                                handleFailure(throwable);
                             }
                         });
             }
@@ -95,12 +101,25 @@ public class RequestHandler {
 
     // Success handler
     public void handleSuccess(String response) {
-        System.out.println(response);
+        if (onSuccessCallback != null) {
+            Platform.runLater(() -> onSuccessCallback.accept(response));
+        }
     }
 
     // Failure handler
     public void handleFailure(Throwable throwable) {
-        System.err.println("Error: " + throwable.getMessage());
+        if (onFailureCallback != null) {
+            Platform.runLater(() -> onFailureCallback.accept("Error: " + throwable.getMessage()));
+        }
+    }
+
+    // Setters for callbacks
+    public void setOnSuccessCallback(Consumer<String> callback) {
+        this.onSuccessCallback = callback;
+    }
+
+    public void setOnFailureCallback(Consumer<String> callback) {
+        this.onFailureCallback = callback;
     }
 
     public enum RequestType {
