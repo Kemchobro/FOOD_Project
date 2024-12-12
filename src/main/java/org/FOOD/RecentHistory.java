@@ -35,5 +35,16 @@ public class RecentHistory {
         return rows;
     }
 
+    public static void clearHistory() {
+        String csvFile = "src/main/java/org/FOOD/RecentHistory.csv";
+        try (CSVWriter writer = new CSVWriter(new FileWriter(csvFile))) {
+            // Overwrites the file with an empty content (clears the history)
+            writer.writeAll(new ArrayList<>());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }

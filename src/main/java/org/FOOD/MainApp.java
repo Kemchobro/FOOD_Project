@@ -1,6 +1,7 @@
 package org.FOOD;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javafx.application.Application;
@@ -23,8 +24,11 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) {
         // UI
-        ListView<String> listView = new ListView<>();
-        listView.setStyle("-fx-control-inner-background: #f0f4f8; -fx-font-size: 14px;");
+        ListView<String> recentSearchesView = new ListView<>();
+        recentSearchesView.setStyle("-fx-control-inner-background: #f8f9fa; -fx-font-size: 14px;");
+
+        ListView<String> fetchedArticlesView = new ListView<>();
+        fetchedArticlesView.setStyle("-fx-control-inner-background: #f0f4f8; -fx-font-size: 14px;");
 
         TextField queryField = new TextField();
         queryField.setPromptText("Enter a topic...");
@@ -33,6 +37,9 @@ public class MainApp extends Application {
         Button searchButton = new Button("Search");
         searchButton.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-size: 14px;");
 
+        Button clearHistoryButton = new Button("Clear History");
+        clearHistoryButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 14px;");
+
         TextArea detailsArea = new TextArea();
         detailsArea.setEditable(false);
         detailsArea.setWrapText(true);
@@ -40,69 +47,136 @@ public class MainApp extends Application {
 
         Button citationButton = new Button("Generate Citation");
         citationButton.setStyle("-fx-background-color: #ffa500; -fx-text-fill: white; -fx-font-size: 14px;");
-        citationButton.setDisable(true); 
+        citationButton.setDisable(true);
+
+        loadRecentHistory(recentSearchesView);
 
         // Search Button Action
         searchButton.setOnAction(event -> {
             // Clear previous results
-            listView.getItems().clear(); 
-            detailsArea.clear(); 
+            fetchedArticlesView.getItems().clear();
+            detailsArea.clear();
             // Clear details area
             String query = queryField.getText().trim();
             if (!query.isEmpty()) {
-                fetchNews(query, listView);
+                fetchNews(query, fetchedArticlesView);
+                RecentHistory.addStrings(query); // Add query to CSV
+
+                // Add query to recentSearchesView ListView (Recent History)
+                if (!recentSearchesView.getItems().contains(query)) {
+                    recentSearchesView.getItems().add(0, query); // Add to the top of the ListView
+                }
             } else {
-                listView.getItems().add("Please enter a valid topic.");
+                fetchedArticlesView.getItems().add("Please enter a valid topic.");
             }
         });
 
+        // Clear History Button Action
+        clearHistoryButton.setOnAction(event -> {
+            // Clear the ListView
+            recentSearchesView.getItems().clear();
+
+            // Clear the CSV file (or clear its contents)
+            RecentHistory.clearHistory();
+        });
+
+
         // Shows Details and Creates Citation Button
-        listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        fetchedArticlesView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 detailsArea.setText(articleDetailsMap.getOrDefault(newValue, "No details available."));
                 // Citation button
-                citationButton.setDisable(false); 
+                citationButton.setDisable(false);
             }
         });
 
         // Citation Button Action
         citationButton.setOnAction(event -> {
-            String selectedTitle = listView.getSelectionModel().getSelectedItem();
+            String selectedTitle = fetchedArticlesView.getSelectionModel().getSelectedItem();
             if (selectedTitle != null) {
                 String articleDetails = articleDetailsMap.get(selectedTitle);
                 if (articleDetails != null) {
                     String citation = CitationGenerator.generateCitation(articleDetails);
                     // Displays citation
-                    detailsArea.setText("Citation:\n" + citation); 
+                    detailsArea.setText("Citation:\n" + citation);
                 }
             }
         });
 
-        // Layout 
+        // Layout for Recent Searches Box (Vertical, Left Side)
+        VBox recentSearchesBox = new VBox(10, recentSearchesView, clearHistoryButton);
+        recentSearchesBox.setPadding(new Insets(10));
+        recentSearchesBox.setStyle("-fx-background-color: #eeeeee;");
+        recentSearchesBox.setMinWidth(150); // Minimum width to prevent shrinking too much
+
+// Layout for Articles, Description Boxes, and Citation Button (Vertically Stacked, Right Side)
+        VBox articlesAndDetailsBox = new VBox(10, fetchedArticlesView, detailsArea, citationButton);
+        articlesAndDetailsBox.setPadding(new Insets(10));
+        articlesAndDetailsBox.setStyle("-fx-background-color: #f7f7f7;");
+
+// Combine Both Sections in Horizontal Layout
+        HBox mainContent = new HBox(10, recentSearchesBox, articlesAndDetailsBox);
+        mainContent.setPadding(new Insets(10));
+
+// Bind components to dynamically resize with the window
+        mainContent.prefWidthProperty().bind(stage.widthProperty());
+        mainContent.prefHeightProperty().bind(stage.heightProperty().subtract(80)); // Account for the top bar height
+
+        recentSearchesBox.prefHeightProperty().bind(mainContent.heightProperty());
+        articlesAndDetailsBox.prefHeightProperty().bind(mainContent.heightProperty());
+
+        recentSearchesBox.prefWidthProperty().bind(mainContent.widthProperty().multiply(0.25)); // Take 25% of the width
+        articlesAndDetailsBox.prefWidthProperty().bind(mainContent.widthProperty().multiply(0.75)); // Take 75% of the width
+
+
+        // Top Bar (Query Field and Search Button)
         HBox topBar = new HBox(10, queryField, searchButton);
         topBar.setPadding(new Insets(10));
         topBar.setStyle("-fx-background-color: #eeeeee;");
+        topBar.prefWidthProperty().bind(stage.widthProperty()); // Top bar spans full width
 
-        HBox bottomBar = new HBox(10, citationButton);
-        bottomBar.setPadding(new Insets(10));
-        bottomBar.setStyle("-fx-background-color: #eeeeee;");
 
-        VBox root = new VBox(10, topBar, listView, detailsArea, bottomBar);
+        // Final Layout (Top Bar + Main Content)
+        VBox root = new VBox(10, topBar, mainContent);
         root.setPadding(new Insets(15));
         root.setStyle("-fx-background-color: #f7f7f7;");
+        root.prefWidthProperty().bind(stage.widthProperty());
+        root.prefHeightProperty().bind(stage.heightProperty());
 
-        Scene scene = new Scene(root, 800, 600);
-
+        // Scene
+        Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("News Viewer with Citations");
+        stage.setTitle("InfoHub");
+
+        // Enforce minimum window size
+        stage.setMinWidth(600); // Minimum width of the window
+        stage.setMinHeight(400); // Minimum height of the window
+
+        // Enforce aspect ratio (4:3 aspect ratio)
+        stage.widthProperty().addListener((observable, oldValue, newValue) -> {
+            double aspectRatio = 4.0 / 3.0;
+            double newHeight = newValue.doubleValue() / aspectRatio;
+            stage.setHeight(Math.max(newHeight, 400)); // Set height with a minimum of 400px
+        });
+
         stage.show();
+
+    }
+
+    // Load recent search history from the CSV into the ListView
+    private void loadRecentHistory(ListView<String> listView) {
+        List<String[]> recentHistory = RecentHistory.getStrings();
+        for (String[] entry : recentHistory) {
+            if (entry.length > 0) {
+                listView.getItems().add(entry[0]);
+            }
+        }
     }
 
 
      //Fetch news based on user input and update the ListView.
      
     private void fetchNews(String query, ListView<String> listView) {
-        RecentHistory.addStrings(query);
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() throws Exception {

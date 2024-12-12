@@ -29,7 +29,7 @@ public class DateHelpers {
 
             // Printing the converted date
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy")
                     .withZone(ZoneId.systemDefault());
             String customFormatted = formatter.format(timestamp);
             return "Date: " + customFormatted;

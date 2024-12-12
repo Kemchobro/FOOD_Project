@@ -36,7 +36,7 @@ public class RequestHandler {
                                             .append("URL: ").append(article.getUrl()).append("\n")
                                             .append("Description: ").append(article.getDescription()).append("\n")
                                             .append("Content: ").append(article.getContent()).append("\n")
-                                            .append("Published At: ").append(article.getPublishedAt()).append("\n\n");
+                                            .append("Published At: ").append(DateHelpers.getDate(article.getPublishedAt())).append("\n\n");
                                 }
                                 handleSuccess(result.toString());
                             }
