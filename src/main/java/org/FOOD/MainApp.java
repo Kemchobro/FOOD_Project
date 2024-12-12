@@ -17,12 +17,12 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-    // Map to store full details for each article
+    // Store full details for each article
     private final Map<String, String> articleDetailsMap = new HashMap<>();
 
     @Override
     public void start(Stage stage) {
-        // UI Components
+        // UI
         ListView<String> listView = new ListView<>();
         listView.setStyle("-fx-control-inner-background: #f0f4f8; -fx-font-size: 14px;");
 
@@ -38,7 +38,11 @@ public class MainApp extends Application {
         detailsArea.setWrapText(true);
         detailsArea.setStyle("-fx-control-inner-background: #f9f9f9; -fx-font-size: 14px; -fx-border-color: #ddd;");
 
-        // Button Action to Fetch News
+        Button citationButton = new Button("Generate Citation");
+        citationButton.setStyle("-fx-background-color: #ffa500; -fx-text-fill: white; -fx-font-size: 14px;");
+        citationButton.setDisable(true); // Initially disabled until a selection is made
+
+        // Search Button Action
         searchButton.setOnAction(event -> {
             listView.getItems().clear(); // Clear previous results
             detailsArea.clear(); // Clear details area
@@ -50,10 +54,23 @@ public class MainApp extends Application {
             }
         });
 
-        // ListView Selection Listener to Show Details
+        // ListView Selection Listener to Show Details and Enable Citation Button
         listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 detailsArea.setText(articleDetailsMap.getOrDefault(newValue, "No details available."));
+                citationButton.setDisable(false); // Enable citation button when an item is selected
+            }
+        });
+
+        // Citation Button Action
+        citationButton.setOnAction(event -> {
+            String selectedTitle = listView.getSelectionModel().getSelectedItem();
+            if (selectedTitle != null) {
+                String articleDetails = articleDetailsMap.get(selectedTitle);
+                if (articleDetails != null) {
+                    String citation = CitationGenerator.generateCitation(articleDetails);
+                    detailsArea.setText("Citation:\n" + citation); // Display citation in the details area
+                }
             }
         });
 
@@ -62,14 +79,18 @@ public class MainApp extends Application {
         topBar.setPadding(new Insets(10));
         topBar.setStyle("-fx-background-color: #eeeeee;");
 
-        VBox root = new VBox(10, topBar, listView, detailsArea);
+        HBox bottomBar = new HBox(10, citationButton);
+        bottomBar.setPadding(new Insets(10));
+        bottomBar.setStyle("-fx-background-color: #eeeeee;");
+
+        VBox root = new VBox(10, topBar, listView, detailsArea, bottomBar);
         root.setPadding(new Insets(15));
         root.setStyle("-fx-background-color: #f7f7f7;");
 
         Scene scene = new Scene(root, 800, 600);
 
         stage.setScene(scene);
-        stage.setTitle("News Viewer");
+        stage.setTitle("News Viewer with Citations");
         stage.show();
     }
 
