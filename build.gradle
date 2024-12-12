@@ -42,6 +42,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.11.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'com.opencsv:opencsv:5.8'
 }
 
 dependencyManagement {
