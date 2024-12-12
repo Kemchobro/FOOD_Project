@@ -12,7 +12,7 @@ import java.util.List;
 
 public class RecentHistory {
 
-
+    // adds an entry to the end of the csv file
     public static void addStrings(String... string) {
         String csvFile = "src/main/java/org/FOOD/RecentHistory.csv";
         try (CSVWriter writer = new CSVWriter(new FileWriter(csvFile, true))) {
@@ -21,7 +21,7 @@ public class RecentHistory {
             e.printStackTrace();
         }
     }
-
+    // returns the entries on the csv file
     public static List<String[]> getStrings() {
         String csvFile = "src/main/java/org/FOOD/RecentHistory.csv";
         List<String[]> rows = new ArrayList<>();
@@ -34,11 +34,10 @@ public class RecentHistory {
 
         return rows;
     }
-
+    // wipes the csv file
     public static void clearHistory() {
         String csvFile = "src/main/java/org/FOOD/RecentHistory.csv";
         try (CSVWriter writer = new CSVWriter(new FileWriter(csvFile))) {
-            // Overwrites the file with an empty content (clears the history)
             writer.writeAll(new ArrayList<>());
         } catch (IOException e) {
             e.printStackTrace();

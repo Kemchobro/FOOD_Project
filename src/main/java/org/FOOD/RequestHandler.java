@@ -14,13 +14,14 @@ import org.kwabenaberko.newsapilib.models.response.SourcesResponse;
 import javafx.application.Platform;
 
 public class RequestHandler {
-
+    // uses the api so i do not have to make http requests
     NewsApiClient newsApiClient = new NewsApiClient("5d3a947c1a7d4e9e8abea0ffa1f074d7");
 
     private Consumer<String> onSuccessCallback;
     private Consumer<String> onFailureCallback;
 
     public RequestHandler(String query, RequestType requestType) {
+        // lets you switch between different types of requests, but the other two from the api threw errors
         switch (requestType) {
             case EVERYTHING -> {
                 newsApiClient.getEverything(

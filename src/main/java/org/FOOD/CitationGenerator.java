@@ -27,8 +27,7 @@ public class CitationGenerator {
         return citation.toString();
     }
 
-     //Parses the article details string into a key-value map
-     //returns The full article details as a string.
+     //Parses the article details string into a key-value map returns The full article details as a string.
      
     private static Map<String, String> parseArticleDetails(String article) {
         Map<String, String> details = new HashMap<>();

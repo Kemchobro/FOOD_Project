@@ -1,3 +1,8 @@
+// InfoHub
+// Diego Sanchez & Vidhatu Patel
+// 12/12/2024
+// InfoHub: A news aggregation app that compiles articles from sources like NY Times and The Guardian, offering  updates and reducing polarized clutter.
+// I abide by the Academic Honesty Policy
 package org.FOOD;
 
 import java.util.HashMap;
@@ -20,7 +25,7 @@ public class MainApp extends Application {
 
     // Store full details for each article
     private final Map<String, String> articleDetailsMap = new HashMap<>();
-
+    // runs when the application initially starts
     @Override
     public void start(Stage stage) {
         // UI
@@ -60,11 +65,11 @@ public class MainApp extends Application {
             String query = queryField.getText().trim();
             if (!query.isEmpty()) {
                 fetchNews(query, fetchedArticlesView);
-                RecentHistory.addStrings(query); // Add query to CSV
+                RecentHistory.addStrings(query);
 
                 // Add query to recentSearchesView ListView (Recent History)
                 if (!recentSearchesView.getItems().contains(query)) {
-                    recentSearchesView.getItems().add(0, query); // Add to the top of the ListView
+                    recentSearchesView.getItems().add(0, query);
                 }
             } else {
                 fetchedArticlesView.getItems().add("Please enter a valid topic.");
@@ -107,33 +112,33 @@ public class MainApp extends Application {
         VBox recentSearchesBox = new VBox(10, recentSearchesView, clearHistoryButton);
         recentSearchesBox.setPadding(new Insets(10));
         recentSearchesBox.setStyle("-fx-background-color: #eeeeee;");
-        recentSearchesBox.setMinWidth(150); // Minimum width to prevent shrinking too much
+        recentSearchesBox.setMinWidth(150);
 
-// Layout for Articles, Description Boxes, and Citation Button (Vertically Stacked, Right Side)
+        // Layout for Articles, Description Boxes, and Citation Button (Vertically Stacked, Right Side)
         VBox articlesAndDetailsBox = new VBox(10, fetchedArticlesView, detailsArea, citationButton);
         articlesAndDetailsBox.setPadding(new Insets(10));
         articlesAndDetailsBox.setStyle("-fx-background-color: #f7f7f7;");
 
-// Combine Both Sections in Horizontal Layout
+        // Combine Both Sections in Horizontal Layout
         HBox mainContent = new HBox(10, recentSearchesBox, articlesAndDetailsBox);
         mainContent.setPadding(new Insets(10));
 
-// Bind components to dynamically resize with the window
+        // Bind components to dynamically resize with the window
         mainContent.prefWidthProperty().bind(stage.widthProperty());
-        mainContent.prefHeightProperty().bind(stage.heightProperty().subtract(80)); // Account for the top bar height
+        mainContent.prefHeightProperty().bind(stage.heightProperty().subtract(80));
 
         recentSearchesBox.prefHeightProperty().bind(mainContent.heightProperty());
         articlesAndDetailsBox.prefHeightProperty().bind(mainContent.heightProperty());
 
-        recentSearchesBox.prefWidthProperty().bind(mainContent.widthProperty().multiply(0.25)); // Take 25% of the width
-        articlesAndDetailsBox.prefWidthProperty().bind(mainContent.widthProperty().multiply(0.75)); // Take 75% of the width
+        recentSearchesBox.prefWidthProperty().bind(mainContent.widthProperty().multiply(0.25));
+        articlesAndDetailsBox.prefWidthProperty().bind(mainContent.widthProperty().multiply(0.75));
 
 
         // Top Bar (Query Field and Search Button)
         HBox topBar = new HBox(10, queryField, searchButton);
         topBar.setPadding(new Insets(10));
         topBar.setStyle("-fx-background-color: #eeeeee;");
-        topBar.prefWidthProperty().bind(stage.widthProperty()); // Top bar spans full width
+        topBar.prefWidthProperty().bind(stage.widthProperty());
 
 
         // Final Layout (Top Bar + Main Content)
@@ -149,14 +154,14 @@ public class MainApp extends Application {
         stage.setTitle("InfoHub");
 
         // Enforce minimum window size
-        stage.setMinWidth(600); // Minimum width of the window
-        stage.setMinHeight(400); // Minimum height of the window
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
 
         // Enforce aspect ratio (4:3 aspect ratio)
         stage.widthProperty().addListener((observable, oldValue, newValue) -> {
             double aspectRatio = 4.0 / 3.0;
             double newHeight = newValue.doubleValue() / aspectRatio;
-            stage.setHeight(Math.max(newHeight, 400)); // Set height with a minimum of 400px
+            stage.setHeight(Math.max(newHeight, 400));
         });
 
         stage.show();
