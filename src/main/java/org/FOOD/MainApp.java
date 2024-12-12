@@ -20,11 +20,15 @@ public class MainApp extends Application {
     // Map to store full details for each article
     private final Map<String, String> articleDetailsMap = new HashMap<>();
 
+
     @Override
     public void start(Stage stage) {
         // UI Components
         ListView<String> listView = new ListView<>();
         listView.setStyle("-fx-control-inner-background: #f0f4f8; -fx-font-size: 14px;");
+
+//        ListView<String> recentHistory = new ListView<>();
+//        listView.setStyle("-fx-control-inner-background: #f0f4f8; -fx-font-size: 14px;");
 
         TextField queryField = new TextField();
         queryField.setPromptText("Enter a topic...");
@@ -77,6 +81,8 @@ public class MainApp extends Application {
      * Fetch news based on user input and update the ListView.
      */
     private void fetchNews(String query, ListView<String> listView) {
+        RecentHistory recentHistory = new RecentHistory();
+        recentHistory.addStrings(query);
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() throws Exception {
